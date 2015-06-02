@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","java","python"]);
+          setupLanguages(["python","java"]);
         });
       </script>
   </head>
@@ -28,9 +28,8 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="java">java</a>
               <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="java">java</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,7 +38,6 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -48,86 +46,72 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Premfina API! You can use our API to access information in our database.</p>
+<p>Welcome to the PremFina API ! You can use our API to access information in our systems.</p>
 
-<p>The API is REST based and supports consumers using a variety ofprogramming languages 
-Examples in Shell, Java and Python are shown to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The API is REST based and &ldquo;language agnostic&rdquo; supporting consumers using a variety of programming languages.</p>
+
+<p>Examples in  Java and Python are shown to the right, you can switch the programming language of the examples with the tabs in the top right.</p>
 
 <h1 id="authentication">Authentication</h1>
 
+<p>After you are set up on our systems, you can login via a user name and password.</p>
+
+<p>On login you will receive a temporary token, the token can be used for further calls to the APIs.</p>
+
+<p>The token expires after a period of inactivity i.e. 5 minutes.</p>
+
+<p>The sequence of operations are </p>
+
+<ol>
+<li>Login API call</li>
+<li>Further API calls</li>
+<li>Logout API call</li>
+</ol>
+
+<p>If you do not make the logout API call the token expires in 5 minutes  and the process is to be repeated, i.e login ..</p>
+
+<h2 id="login-to-the-system">Login to the system</h2>
+
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>To login, use this code:</p>
 </blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight python"><code>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"user"</span><span class="p">:</span> <span class="s">"bennetts"</span><span class="p">,</span> <span class="s">"password"</span><span class="p">:</span> <span class="s">"pa33w0rd-2"</span><span class="p">}</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/login"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
 </code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+
 </code></pre>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+<p>Replace <code class="prettyprint">user</code> and password with your details.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>A sample token is given below</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<p><code class="prettyprint">Token: 25892e17-80f6-415f-9c65-7395632f0223</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+The temporary authenticated token will expire if there is a period of inactivity of 5 minutes.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<h2 id="logout-of-the-system">Logout of the system</h2>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint is used to logout.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens</code></p>
+<p><code class="prettyprint">POST http://api.premfina.com/logout/{token}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -139,57 +123,72 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
+<td>token</td>
 <td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>Pass in the temporary token issued after a login request</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+A HTTP status code of 204 denoting a successful logout
 </aside>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/logout/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<pre class="highlight java"><code>
+<span class="n">coming</span> <span class="n">soon</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/3"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+
+<h1 id="scheme">Scheme</h1>
+
+<p>A scheme is a configuration containing the details of the product</p>
+
+<h2 id="get-a-list-of-schemes">Get a list of schemes</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://api.premfina.com/schemes/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
 </code></pre>
 
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<pre class="highlight json"><code><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"scheme1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A description of the scheme"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"product1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"params"</span><span class="p">:[{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}},</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"schemeCode1"</span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"scheme2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A description of scheme2"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"product2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"params"</span><span class="p">:[{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}},</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"schemeCode2"</span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span></code></pre>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves a list of schemes on the system.</p>
 
-<aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<aside class="warning">These schemes already exist on our systems</aside>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://api.premfina.com/schemes/{token}</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="path-variable">Path Variable</h3>
 
 <table><thead>
 <tr>
@@ -198,16 +197,1065 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the cat to retrieve</td>
+<td>Token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<h2 id="get-a-scheme">Get a scheme</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://api.premfina.com/schemes/{schemeCode}/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"scheme1"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A description of the scheme"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+      </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"product1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"params"</span><span class="p">:[{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}},</span><span class="w">
+  </span><span class="s2">"code"</span><span class="p">:</span><span class="s2">"schemeCode1"</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This endpoint retrieves a scheme based on the scheme code.</p>
+
+<aside class="warning">The scheme must already exist on our systems</aside>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`GET http://api.premfina.com/schemes/{schemeCode}/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>schemeCode</td>
+<td>A particular scheme code from the list of schemes</td>
+</tr>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<h1 id="quote">Quote</h1>
+
+<p>A quote contains the financial details and is retrieved passing in particulars.</p>
+
+<p>A persistent quote is a quote that remains on the system and is activated later on demand.</p>
+
+<h2 id="retrieve-a-quote">Retrieve a Quote</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> <span class="n">schemeCode</span><span class="o">=</span><span class="s">"scheme1"</span><span class="p">,</span> <span class="n">premium</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span> <span class="n">deposit</span> <span class="o">=</span><span class="s">""</span> <span class="p">,</span> <span class="n">renewal</span><span class="o">=</span><span class="s">"N"</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+    </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves a quote, the renewal flag is used for existing agreements</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/quote/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<h2 id="retrieve-a-persistent-quote">Retrieve a Persistent Quote</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> <span class="n">schemeCode</span><span class="o">=</span><span class="s">"scheme1"</span><span class="p">,</span> 
+            <span class="n">premium</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span> 
+            <span class="n">deposit</span> <span class="o">=</span><span class="s">""</span><span class="p">,</span>
+           <span class="p">{</span> <span class="s">"fullName"</span><span class="p">:</span><span class="s">"Joe Bloggs"</span><span class="p">,</span>
+             <span class="s">"firstName"</span><span class="p">:</span> <span class="s">"Joe"</span><span class="p">,</span>
+             <span class="s">"surname"</span><span class="p">:</span> <span class="s">"Bloggs"</span><span class="p">,</span>
+             <span class="s">"addresses"</span><span class="p">:[</span>
+                  <span class="p">{</span><span class="s">"country"</span><span class="p">:</span><span class="s">"UK"</span><span class="p">,</span>
+                   <span class="s">"addressLine1"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine2"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine3"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"city"</span><span class="p">:</span> <span class="s">"London"</span><span class="p">,</span>
+                   <span class="s">"zipCode"</span><span class="p">:</span> <span class="s">"EC2 NW"</span><span class="p">}],</span>
+                   <span class="s">"contacts"</span><span class="p">:[</span>
+                     <span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">"test@mail"</span><span class="p">,</span>
+                      <span class="s">"landline"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"mobile"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"fax"</span><span class="p">:</span> <span class="s">""</span><span class="p">}],</span>
+            <span class="s">"bankAccounts"</span><span class="p">:[</span>
+                <span class="p">{</span><span class="s">"sortCode"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountNumber"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountType"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountName"</span><span class="p">:</span><span class="s">""</span><span class="p">}]}</span>
+<span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/quote/persist/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+    </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"persistentQuoteId"</span><span class="p">:</span><span class="s2">"persistentQuoteId-213"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves a persistent quote. The persistent quote is stored on the system for activation at a later date.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/quote/persist/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">The persistent quote can be activated later on demand by passing in the persistentQuoteId</aside>
+
+<h1 id="agreement">Agreement</h1>
+
+<p>An agreement is a financed insurance policy</p>
+
+<p>An agreement can be activated by passing in the persistentQuoteId retrieved from the persistent quote api.</p>
+
+<p>An agreement can also be created by passing in the details of a retrieved quote and the details of the Customer including the bank details.</p>
+
+<h2 id="create-an-agreement-from-a-persistent-quote">Create an agreement from a persistent quote</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/persist/persistentQuoteId-213/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint creates an agreement from a persistent quote</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/persist/{persistentQuoteId}/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>persistentQuoteId</td>
+<td>The previously requested persistent quote</td>
+</tr>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The agreement is activated from a persistent quote within the time window</aside>
+
+<h2 id="create-an-agreement">Create an agreement</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> 
+           <span class="n">requestDate</span><span class="p">:</span> <span class="s">"2015-06-03 10:00:00"</span><span class="p">,</span>
+          <span class="s">"customer"</span><span class="p">:{</span> <span class="s">"fullName"</span><span class="p">:</span><span class="s">"Joe Bloggs"</span><span class="p">,</span>
+             <span class="s">"firstName"</span><span class="p">:</span> <span class="s">"Joe"</span><span class="p">,</span>
+             <span class="s">"surname"</span><span class="p">:</span> <span class="s">"Bloggs"</span><span class="p">,</span>
+             <span class="s">"addresses"</span><span class="p">:[</span>
+                  <span class="p">{</span><span class="s">"country"</span><span class="p">:</span><span class="s">"UK"</span><span class="p">,</span>
+                   <span class="s">"addressLine1"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine2"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine3"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"city"</span><span class="p">:</span> <span class="s">"London"</span><span class="p">,</span>
+                   <span class="s">"zipCode"</span><span class="p">:</span> <span class="s">"EC2 NW"</span><span class="p">}],</span>
+                   <span class="s">"contacts"</span><span class="p">:[</span>
+                     <span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">"test@mail"</span><span class="p">,</span>
+                      <span class="s">"landline"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"mobile"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"fax"</span><span class="p">:</span> <span class="s">""</span><span class="p">}],</span>
+            <span class="s">"bankAccounts"</span><span class="p">:[</span>
+                <span class="p">{</span><span class="s">"sortCode"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountNumber"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountType"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountName"</span><span class="p">:</span><span class="s">""</span><span class="p">}]},</span>
+          <span class="s">"quote"</span><span class="p">:{</span> <span class="s">"scheme"</span><span class="p">:{</span>
+              <span class="s">"name"</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+              <span class="s">"description"</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+              <span class="s">"product"</span><span class="p">:{</span>
+                   <span class="s">"code"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                   <span class="s">"collectionParams"</span><span class="p">:{</span>
+                         <span class="s">"params"</span><span class="p">:[</span>
+                           <span class="p">{</span><span class="s">"key"</span><span class="p">:</span><span class="s">"frequency"</span><span class="p">,</span><span class="s">"value"</span><span class="p">:</span><span class="s">"12"</span><span class="p">}]}</span>
+                        <span class="p">},</span>
+                <span class="s">"code"</span><span class="p">:</span><span class="n">null</span><span class="p">},</span>
+                <span class="s">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="s">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="s">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                <span class="s">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="s">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                <span class="s">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span>
+            <span class="p">}}</span>
+
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/create/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint creates an agreement based on a quote and a Customer</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/create/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The agreement is created</aside>
+
+<h2 id="renew-an-agreement">Renew an agreement</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/renew/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint renews an existing agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/renew/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The agreement is renewed</aside>
+
+<h2 id="cancel-an-agreement">Cancel an agreement</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> <span class="s">"agreementNo"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="s">"cancellationReason"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="n">cancellationTypes</span> <span class="p">:</span> <span class="s">""</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/cancel/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<p>This endpoint cancels an existing agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/cancel/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The agreement is cancelled</aside>
+
+<h2 id="get-an-agreement">Get an agreement</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/get/agreement-123/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves an agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`GET http://api.premfina.com/agreement/{agreementId}/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>agreementId</td>
+<td>The agreement id to return</td>
+</tr>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The details of the agreement</aside>
+
+<h2 id="get-the-schedule-for-an-agreement">Get the schedule for an agreement</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/getschedule/agreement-123/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"2015-06-03"</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"schedule1"</span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"2015-06-04"</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"schedule2"</span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="s2">"date"</span><span class="p">:</span><span class="s2">"2015-06-05"</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"schedule3"</span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint lists the payment schedule for an agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`GET http://api.premfina.com/agreement/getschedule/{agreementId}/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>agreementId</td>
+<td>The agreement id to return</td>
+</tr>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The details of the payment schedule for an agreement</aside>
+
+<h1 id="midterm-adjustment">Midterm adjustment</h1>
+
+<p>Mid term adjustments to an agreement</p>
+
+<h2 id="midterm-adjustment-address-change">Midterm adjustment-address change</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> 
+           <span class="n">requestDate</span><span class="p">:</span> <span class="s">"2015-06-03 10:00:00"</span><span class="p">,</span>
+          <span class="s">"customer"</span><span class="p">:{</span> 
+             <span class="s">"addresses"</span><span class="p">:[</span>
+                  <span class="p">{</span><span class="s">"country"</span><span class="p">:</span><span class="s">"UK"</span><span class="p">,</span>
+                   <span class="s">"addressLine1"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine2"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"addressLine3"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                   <span class="s">"city"</span><span class="p">:</span> <span class="s">"London"</span><span class="p">,</span>
+                   <span class="s">"zipCode"</span><span class="p">:</span> <span class="s">"EC2 NW"</span><span class="p">}],</span>
+                   <span class="s">"contacts"</span><span class="p">:[</span>
+                     <span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">"test@mail"</span><span class="p">,</span>
+                      <span class="s">"landline"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"mobile"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+                      <span class="s">"fax"</span><span class="p">:</span> <span class="s">""</span><span class="p">}]}</span>
+            <span class="p">}</span>
+
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/modify/address/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint modifies an agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/modify/address/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The customers address is changed</aside>
+
+<h2 id="midterm-adjustment-bank-account-change">Midterm adjustment-bank account change</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> 
+           <span class="n">requestDate</span><span class="p">:</span> <span class="s">"2015-06-03 10:00:00"</span><span class="p">,</span>
+          <span class="s">"customer"</span><span class="p">:{</span> 
+             <span class="s">"bankAccounts"</span><span class="p">:[</span>
+                <span class="p">{</span><span class="s">"sortCode"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountNumber"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountType"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span>
+                 <span class="s">"accountName"</span><span class="p">:</span><span class="s">""</span><span class="p">}]}</span>
+            <span class="p">}</span>
+
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/modify/bankaccount/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"customer"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"fullName"</span><span class="p">:</span><span class="s2">"Joe Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"surname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bloggs"</span><span class="p">,</span><span class="w">
+             </span><span class="s2">"addresses"</span><span class="p">:[</span><span class="w">
+                  </span><span class="p">{</span><span class="s2">"country"</span><span class="p">:</span><span class="s2">"UK"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"addressLine3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                   </span><span class="s2">"zipCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EC2 NW"</span><span class="p">}],</span><span class="w">
+                   </span><span class="s2">"contacts"</span><span class="p">:[</span><span class="w">
+                     </span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@mail"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"landline"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"bankAccounts"</span><span class="p">:[</span><span class="w">
+                </span><span class="p">{</span><span class="s2">"sortCode"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountNumber"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountType"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+                 </span><span class="s2">"accountName"</span><span class="p">:</span><span class="s2">""</span><span class="p">}]},</span><span class="w">
+      </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint modifies an agreement</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/modify/bankaccount/{token}</p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">The customers bank account is changed</aside>
+
+<h2 id="midterm-adjustment-premium-change-quote">Midterm adjustment-premium change-quote</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> 
+           <span class="s">"requestDate"</span><span class="p">:</span> <span class="s">"2015-06-03 10:00:00"</span><span class="p">,</span>
+           <span class="s">"agreementNumber"</span><span class="p">:</span> <span class="s">"123"</span><span class="p">,</span>
+           <span class="s">"premium"</span> <span class="p">:</span> <span class="s">""</span>          
+            <span class="p">}</span>
+
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/get/premium/quote/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"quote"</span><span class="p">:{</span><span class="w"> </span><span class="s2">"scheme"</span><span class="p">:{</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:{</span><span class="w">
+               </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"collectionParams"</span><span class="p">:{</span><span class="w">
+                     </span><span class="s2">"params"</span><span class="p">:[</span><span class="w">
+                       </span><span class="p">{</span><span class="s2">"key"</span><span class="p">:</span><span class="s2">"frequency"</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="s2">"12"</span><span class="p">}]}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"code"</span><span class="p">:</span><span class="kc">null</span><span class="p">},</span><span class="w">
+            </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint retrieves the quote for a change in premium</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/get/premium/quote/{token}&rsquo;  </p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">Get the quote for a change in premium for an existing agreement</aside>
+
+<h2 id="midterm-adjustment-premium-change">Midterm adjustment-premium change</h2>
+<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">}</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span> 
+           <span class="s">"requestDate"</span><span class="p">:</span> <span class="s">"2015-06-03 10:00:00"</span><span class="p">,</span>
+           <span class="s">"agreementNumber"</span><span class="p">:</span> <span class="s">"123"</span><span class="p">,</span>
+           <span class="s">"premium"</span> <span class="p">:</span> <span class="s">""</span>          
+            <span class="p">}</span>
+
+
+<span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"http://api.premfina.com/agreement/modify/premium/quote/25892e17-80f6-415f-9c65-7395632f0223"</span><span class="p">,</span>  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+</code></pre>
+<pre class="highlight java"><code>
+<span class="n">Coming</span> <span class="n">soon</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"agreementNumber"</span><span class="p">:</span><span class="s2">"123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"premium"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"deposit"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"noInstallments"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"apr"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"flatRate"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"installmentAmount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"scheduled"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"date"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">"description"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"params"</span><span class="err">:</span><span class="p">[{</span><span class="s2">"key"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="s2">"value"</span><span class="p">:</span><span class="kc">null</span><span class="p">}]</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"policyNumber"</span><span class="err">:</span><span class="kc">null</span><span class="err">,</span><span class="w">
+      </span><span class="s2">"timeWindowDays"</span><span class="err">:</span><span class="mi">0</span><span class="err">}</span><span class="w">
+
+</span></code></pre>
+
+<p>This endpoint modifies the agreement for a change in premium and returns the quote for the change.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p>`POST http://api.premfina.com/agreement/modify/premium/quote/{token}&rsquo;  </p>
+
+<h3 id="path-variable">Path Variable</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>token</td>
+<td>The Authentication token received after login</td>
+</tr>
+</tbody></table>
+
+<aside class="info">Modify the agreement with the details of the change in premium</aside>
+
+<h1 id="success">Success</h1>
+
+<p>The PremFina API uses the following success codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Op was successful</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Op was successful (without content)</td>
 </tr>
 </tbody></table>
 
           <h1 id="errors">Errors</h1>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The PremFina API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -217,39 +1265,23 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>Bad Request &ndash;</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>Unauthorized &ndash; Your user name or password was invalid</td>
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; You do not have access to this API</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>Not Found &ndash; The specified entity could not be found</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>Method Not Allowed &ndash; You tried to access the API with an invalid method</td>
 </tr>
 <tr>
 <td>500</td>
@@ -257,16 +1289,15 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarily offline for maintainance. Please try again later.</td>
 </tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="java">java</a>
                 <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="java">java</a>
           </div>
       </div>
     </div>
