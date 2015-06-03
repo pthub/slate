@@ -24,7 +24,7 @@ Examples in  Java and Python are shown to the right, you can switch the programm
 
 # Authentication
 
-Authentication is via a process of login. After you are setup on systems you can login via a user name and password.
+Authentication is via a process of login. After you are set up on our systems, you can login via a user name and password.
 
 On login you will receive a temporary token, the token can be used for further calls to the APIs.
 
@@ -197,7 +197,7 @@ Coming soon
 ```
 
 
-This endpoint retrieves a list of schemes on the system.
+This endpoint retrieves a scheme based on the scheme code.
 
 <aside class="warning">The scheme must already exist on our systems</aside>
 
@@ -708,3 +708,350 @@ agreementId | The agreement id to return
 token | The Authentication token received after login
 
 <aside class="info">The details of the payment schedule for an agreement</aside>
+
+## Midterm adjustment-address change
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { 
+           requestDate: "2015-06-03 10:00:00",
+          "customer":{ 
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}]}
+			}
+
+
+requests.post("http://api.premfina.com/agreement/modify/address/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+  "customer":{ "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]},
+	  "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint modifies an agreement
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/modify/address/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">The customers address is changed</aside>
+
+## Midterm adjustment-bank account change
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { 
+           requestDate: "2015-06-03 10:00:00",
+          "customer":{ 
+			 "bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]}
+			}
+
+
+requests.post("http://api.premfina.com/agreement/modify/bankaccount/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+  "customer":{ "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]},
+	  "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint modifies an agreement
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/modify/bankaccount/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">The customers bank account is changed</aside>
+
+## Midterm adjustment-premium change-quote
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { 
+           "requestDate": "2015-06-03 10:00:00",
+           "agreementNumber": "123",
+		   "premium" : ""		   
+			}
+
+
+requests.post("http://api.premfina.com/agreement/get/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+    "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint retrieves the quote for a change in premium
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/get/premium/quote/{token}'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">Get the quote for a change in premium for an existing agreement</aside>
+
+## Midterm adjustment-premium change
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { 
+           "requestDate": "2015-06-03 10:00:00",
+           "agreementNumber": "123",
+		   "premium" : ""		   
+			}
+
+
+requests.post("http://api.premfina.com/agreement/modify/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+    "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint modifies the agreement for a change in premium and returns the quote for the change.
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/modify/premium/quote/{token}'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">Modify the agreement with the details of the change in premium</aside>
