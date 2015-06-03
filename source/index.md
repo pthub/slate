@@ -579,6 +579,90 @@ token | The Authentication token received after login
 
 <aside class="info">The agreement is created</aside>
 
+## Renew an agreement
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+requests.post("http://api.premfina.com/agreement/renew/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+  "customer":{ "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]},
+	  "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+This endpoint renews an existing agreement
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/renew/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">The agreement is renewed</aside>
+
 ## Get an agreement
 
 ```python
@@ -1015,23 +1099,6 @@ Coming soon
 ```json
 {
   "agreementNumber":"123",
-    "quote":{ "scheme":{
-          "name":null,
-		  "description":null,
-		  "product":{
-		       "code": null,
-			   "collectionParams":{
-			         "params":[
-					   {"key":"frequency","value":"12"}]}
-					},
-			"code":null},
-			"premium":0.0,
-			"deposit":0.0,
-			"noInstallments":0,
-			"apr":0.0,
-			"flatRate":0.0,
-			"installmentAmount":0.0
-		},
       "premium":0.0,
 	  "deposit":0.0,
 	  "noInstallments":0,
