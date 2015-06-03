@@ -274,3 +274,153 @@ Parameter | Description
 --------- | -----------
 token | The Authentication token received after login
 
+## Retrieve a Persistent Quote
+
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { schemeCode="scheme1", 
+            premium = "", 
+			deposit ="",
+		   { "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]}
+}
+
+requests.post("http://api.premfina.com/quote/persist/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+	"premium":0.0,
+	"deposit":0.0,
+	"noInstallments":0,
+	"apr":0.0,
+	"flatRate":0.0,
+	"installmentAmount":0.0,
+	"persistentQuoteId":"persistentQuoteId-213"
+}
+
+```
+
+
+This endpoint retrieves a persistent quote
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/quote/persist/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="warning">The persistent quote can be activated later on demand by passing in the persistentQuoteId</aside>
+
+
+#Agreement
+
+An agreement is a financed insurance policy
+
+An agreement can be activated by passing in the persistentQuoteId retrieved from the persistent quote api.
+
+An agreement can also be created by passing in the details of a retrieved quote and the details of the Customer including the bank details.
+
+## Create an agreement from a persistent quote
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+requests.post("http://api.premfina.com/agreement/persist/persistentQuoteId-213/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+  "customer":{
+      "fullName":null,
+	  "firstName":null,
+	  "surname":null,
+	  "addresses":[{"country":null,"addressLine1":null,"addressLine2":null,"addressLine3":null,"city":null,"zipCode":null}],
+	  "contacts":[{"email":null,"landline":null,"mobile":null,"fax":null}],
+	  "bankAccounts":[{"sortCode":null,"accountNumber":null,"accountType":null,"accountName":null}]},
+	  "quote":{"scheme":{"name":null,"description":null,
+	           "product":{"code":null,
+			   "collectionParams":{"params":[{"key":"frequecy","value":"12"}]}},"code":null},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint creates an agreement from a persistent quote
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/persist/{persistentQuoteId}/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+persistentQuoteId | 
+token | The Authentication token received after login
+
+<aside class="info">The agreement is activated form a persistent quote within the time window</aside>
