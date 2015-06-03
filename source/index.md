@@ -665,3 +665,46 @@ agreementId | The agreement id to return
 token | The Authentication token received after login
 
 <aside class="info">The details of the agreement</aside>
+
+## Get the schedule for an agreement
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+requests.get("http://api.premfina.com/agreement/getschedule/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[ {"date":"2015-06-03","amount":0.0,"description": "schedule1"},
+  {"date":"2015-06-04","amount":0.0,"description": "schedule2"},
+  {"date":"2015-06-05","amount":0.0,"description": "schedule3"}
+]
+
+```
+
+
+This endpoint lists the payment schedule for an agreement
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/agreement/getschedule/{agreementId}/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+agreementId | The agreement id to return
+token | The Authentication token received after login
+
+<aside class="info">The details of the payment schedule for an agreement</aside>
