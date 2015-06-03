@@ -113,46 +113,54 @@ coming soon
 
 
 
-## Get a Specific Kitten
+## Get a list of schemes
 
 ```python
-require 'kittn'
+import requests
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+headers = {'Content-type': 'application/json'}
+
+requests.get("http://api.premfina.com/schemes/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+
 ```
 
 ```java
-import kittn
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+Coming soon
 ```
 
 
 > The above command returns JSON structured like this:
 
 ```json
-{
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+[ { "name":"scheme1",
+  "description": "A description of the scheme",
+  "product":{
+      "code":"product1",
+	  "collectionParams":{
+	      "params":[{"key":"frequency","value":"12"}]}},
+  "code":"schemeCode1"},
+  { "name":"scheme2",
+  "description": "A description of scheme2",
+  "product":{
+      "code":"product2",
+	  "collectionParams":{
+	      "params":[{"key":"frequency","value":"12"}]}},
+  "code":"schemeCode2"}
+  ]
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a list of schemes on the system.
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+<aside class="warning">These schemes already exist on our systems</aside>
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://api.premfina.com/schemes/{token}<ID>`
 
-### URL Parameters
+### Path Variable
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the cat to retrieve
+Token | The Authentication token received after login
 
