@@ -709,6 +709,10 @@ token | The Authentication token received after login
 
 <aside class="info">The details of the payment schedule for an agreement</aside>
 
+# Midterm adjustment
+
+Mid term adjustments to an agreement
+
 ## Midterm adjustment-address change
 
 ```python
