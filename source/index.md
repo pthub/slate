@@ -4,7 +4,6 @@ title: API Reference
 language_tabs:
   - python
   - java
-  - shell
 
 toc_footers:
    - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -21,11 +20,11 @@ Welcome to the PremFina API ! You can use our API to access information in our s
 
 The API is REST based and "language agnostic" supporting consumers using a variety of programming languages.
 
-Examples in Shell, Java and Python are shown to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Examples in  Java and Python are shown to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
-> To authorize, use this code:
+> To login, use this code:
 
 ```python
 
@@ -48,13 +47,8 @@ import kittn
 api = kittn.authorize('meowmeowmeow')
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> Replace `user` and password with your details.
 
 Authentication is via a process of login. After your setup on systems you can login via a user name and password.
 
@@ -62,7 +56,7 @@ On login you will receive a temporary token, the token can be used for further c
 
 The token expires after a period of inactivity i.e. 10 minutes.
 
-The usual sequence of operations are 
+The sequence of operations are 
 
 1. Login API call
 2. Further API calls
@@ -101,11 +95,7 @@ coming soon
 
 ```
 
-```shell
 
-coming soon
-
-```
 
 > The above command returns JSON structured like this:
 
@@ -146,10 +136,6 @@ api = kittn.authorize('meowmeowmeow')
 api.kittens.get(2)
 ```
 
-```shell
-curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
-```
 
 > The above command returns JSON structured like this:
 
