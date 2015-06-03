@@ -158,7 +158,7 @@ This endpoint retrieves a list of schemes on the system.
 
 ### HTTP Request
 
-`GET http://api.premfina.com/schemes/{token}<ID>`
+`GET http://api.premfina.com/schemes/{token}`
 
 ### Path Variable
 
@@ -447,19 +447,60 @@ This endpoint creates an agreement from a persistent quote
 
 Parameter | Description
 --------- | -----------
-persistentQuoteId | 
+persistentQuoteId | The previously requested persistent quote
 token | The Authentication token received after login
 
 <aside class="info">The agreement is activated from a persistent quote within the time window</aside>
 
-## Create an agreement from a persistent quote
+## Create an agreement
 
 ```python
 import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.post("http://api.premfina.com/agreement/persist/persistentQuoteId-213/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+payload = { 
+           requestDate: "2015-06-03 10:00:00",
+          "customer":{ "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]},
+		  "quote":{ "scheme":{
+			  "name":null,
+			  "description":null,
+			  "product":{
+				   "code": null,
+				   "collectionParams":{
+						 "params":[
+						   {"key":"frequency","value":"12"}]}
+						},
+				"code":null},
+				"premium":0.0,
+				"deposit":0.0,
+				"noInstallments":0,
+				"apr":0.0,
+				"flatRate":0.0,
+				"installmentAmount":0.0
+			}}
+
+
+requests.post("http://api.premfina.com/agreement/create/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -523,18 +564,17 @@ Coming soon
 ```
 
 
-This endpoint creates an agreement from a persistent quote
+This endpoint creates an agreement based on a quote and a Customer
 
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/persist/{persistentQuoteId}/{token}
+`POST http://api.premfina.com/agreement/create/{token}
 
 ### Path Variable
 
 Parameter | Description
 --------- | -----------
-persistentQuoteId | 
 token | The Authentication token received after login
 
-<aside class="info">The agreement is activated form a quote within the time window</aside>
+<aside class="info">The agreement is created</aside>
