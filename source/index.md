@@ -1059,3 +1059,12 @@ Parameter | Description
 token | The Authentication token received after login
 
 <aside class="info">Modify the agreement with the details of the change in premium</aside>
+
+# Success
+
+The PremFina API uses the following success codes:
+
+Error Code | Meaning
+---------- | -------
+200 | Op was successful
+204 | Op was successful (without content)
