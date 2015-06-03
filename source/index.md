@@ -203,12 +203,74 @@ This endpoint retrieves a list of schemes on the system.
 
 ### HTTP Request
 
-`GET http://api.premfina.com/schemes/{schemeCode}/{token}<ID>`
+`GET http://api.premfina.com/schemes/{schemeCode}/{token}
 
 ### Path Variable
 
 Parameter | Description
 --------- | -----------
 schemeCode | A particular scheme code from the list of schemes
+token | The Authentication token received after login
+
+#Quote
+
+A quote contains the financial details and is retrieved passing in particulars.
+
+A persistent quote is a quote that remains on the system and is activated later on demand.
+
+## Retrieve a Quote
+
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { schemeCode="scheme1", premium = "", deposit ="" }
+
+requests.post("http://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+	"premium":0.0,
+	"deposit":0.0,
+	"noInstallments":0,
+	"apr":0.0,
+	"flatRate":0.0,
+	"installmentAmount":0.0
+}
+
+```
+
+
+This endpoint retrieves a quote
+
+
+### HTTP Request
+
+`POST http://api.premfina.com/quote/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
 token | The Authentication token received after login
 
