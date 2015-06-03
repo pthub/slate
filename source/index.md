@@ -111,7 +111,9 @@ coming soon
 
 ```
 
+#Scheme
 
+A scheme is a configuration containing the details of the product
 
 ## Get a list of schemes
 
@@ -163,4 +165,50 @@ This endpoint retrieves a list of schemes on the system.
 Parameter | Description
 --------- | -----------
 Token | The Authentication token received after login
+
+
+## Get a scheme
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+requests.get("http://api.premfina.com/schemes/{schemeCode}/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+
+> The above command returns JSON structured like this:
+
+```json
+{ "name":"scheme1",
+  "description": "A description of the scheme",
+  "product":{
+      "code":"product1",
+	  "collectionParams":{
+	      "params":[{"key":"frequency","value":"12"}]}},
+  "code":"schemeCode1"}
+```
+
+
+This endpoint retrieves a list of schemes on the system.
+
+<aside class="warning">The scheme must already exist on our systems</aside>
+
+### HTTP Request
+
+`GET http://api.premfina.com/schemes/{schemeCode}/{token}<ID>`
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+schemeCode | A particular scheme code from the list of schemes
+token | The Authentication token received after login
 
