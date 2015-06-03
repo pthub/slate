@@ -766,7 +766,7 @@ Coming soon
 ```
 
 
-This endpoint creates an agreement based on a quote and a Customer
+This endpoint retrieves an agreement
 
 
 ### HTTP Request
