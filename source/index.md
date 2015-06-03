@@ -24,7 +24,7 @@ Examples in  Java and Python are shown to the right, you can switch the programm
 
 # Authentication
 
-Authentication is via a process of login. After you are set up on our systems, you can login via a user name and password.
+After you are set up on our systems, you can login via a user name and password.
 
 On login you will receive a temporary token, the token can be used for further calls to the APIs.
 
