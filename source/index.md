@@ -578,3 +578,90 @@ Parameter | Description
 token | The Authentication token received after login
 
 <aside class="info">The agreement is created</aside>
+
+## Get an agreement
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+requests.get("http://api.premfina.com/agreement/get/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "agreementNumber":"123",
+  "customer":{ "fullName":"Joe Bloggs",
+		     "firstName": "Joe",
+			 "surname": "Bloggs",
+			 "addresses":[
+			      {"country":"UK",
+				   "addressLine1": "",
+				   "addressLine2": "",
+				   "addressLine3": "",
+				   "city": "London",
+				   "zipCode": "EC2 NW"}],
+				   "contacts":[
+				     {"email": "test@mail",
+					  "landline": "",
+					  "mobile": "",
+					  "fax": ""}],
+			"bankAccounts":[
+				{"sortCode":"",
+				 "accountNumber":"",
+				 "accountType":"",
+				 "accountName":""}]},
+	  "quote":{ "scheme":{
+          "name":null,
+		  "description":null,
+		  "product":{
+		       "code": null,
+			   "collectionParams":{
+			         "params":[
+					   {"key":"frequency","value":"12"}]}
+					},
+			"code":null},
+			"premium":0.0,
+			"deposit":0.0,
+			"noInstallments":0,
+			"apr":0.0,
+			"flatRate":0.0,
+			"installmentAmount":0.0
+		},
+      "premium":0.0,
+	  "deposit":0.0,
+	  "noInstallments":0,
+	  "apr":0.0,
+	  "flatRate":0.0,"installmentAmount":0.0},
+	  "scheduled":[{"date":null,"amount":0.0,"description":null}],
+	  "params":[{"key":null,"value":null}],
+	  "policyNumber":null,
+	  "timeWindowDays":0}
+
+```
+
+
+This endpoint creates an agreement based on a quote and a Customer
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/agreement/{agreementId}/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+agreementId | The agreement id to return
+token | The Authentication token received after login
+
+<aside class="info">The details of the agreement</aside>
