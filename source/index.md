@@ -2,13 +2,12 @@
 title: API Reference
 
 language_tabs:
-  - shell
-  - java
   - python
+  - java
+  - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
@@ -18,22 +17,32 @@ search: true
 
 # Introduction
 
-Welcome to the Premfina API! You can use our API to access information in our database.
+Welcome to the PremFina API ! You can use our API to access information in our systems.
 
-The API is REST based and supports consumers using a variety ofprogramming languages 
+The API is REST based and "language agnostic" supporting consumers using a variety of programming languages.
+
 Examples in Shell, Java and Python are shown to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
+```python
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+import requests
+import json
+
+payload = {"user": "bennetts", "password": "pa33w0rd-2"}
+
+headers = {'Content-type': 'application/json'}
+
+response = requests.post("http://api.premfina.com/login", data=json.dumps(payload), headers = headers)
+
+token = response.text
+
 ```
 
-```python
+```java
 import kittn
 
 api = kittn.authorize('meowmeowmeow')
@@ -47,87 +56,90 @@ curl "api_endpoint_here"
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Authentication is via a process of login. After your setup on systems you can login via a user name and password.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+On login you will receive a temporary token, the token can be used for further calls to the APIs.
 
-`Authorization: meowmeowmeow`
+The token expires after a period of inactivity i.e. 10 minutes.
+
+The usual sequence of operations are 
+
+1. Login API call
+2. Further API calls
+3. Logout API call
+
+If you do not make the logout API call the token expires in 10 minutes  and the process is to be repeated, i.e login ..
+
+A sample token is given below
+
+`Token: 25892e17-80f6-415f-9c65-7395632f0223`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+The temporary authenticated token will expire if there is a period of inactivity of 10 minutes.
 </aside>
 
-# Kittens
+# Login
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+## Login to the system
 
 ```python
-import kittn
+import requests
+import json
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+payload = {"user": "bennetts", "password": "pa33w0rd-2"}
+
+headers = {'Content-type': 'application/json'}
+
+response = requests.post("http://api.premfina.com/login", data=json.dumps(payload), headers = headers)
+
+token = response.text
+```
+
+```java
+
+coming soon
+
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+
+coming soon
+
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+25892e17-80f6-415f-9c65-7395632f0223
 ```
 
-This endpoint retrieves all kittens.
+This endpoint is used to logout.
 
 ### HTTP Request
 
-`GET http://example.com/kittens`
+`POST http://api.premfina.com/logout/{token}`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+token | false | Pass in the temporary token issued after a login request
+
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+A HTTP status code of 204 denoting a successful logout
 </aside>
 
 ## Get a Specific Kitten
 
-```ruby
+```python
 require 'kittn'
 
 api = Kittn::APIClient.authorize!('meowmeowmeow')
 api.kittens.get(2)
 ```
 
-```python
+```java
 import kittn
 
 api = kittn.authorize('meowmeowmeow')
