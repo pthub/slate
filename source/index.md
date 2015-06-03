@@ -226,7 +226,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-payload = { schemeCode="scheme1", premium = "", deposit ="" }
+payload = { schemeCode="scheme1", premium = "", deposit ="" , renewal="N"}
 
 requests.post("http://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
 
@@ -261,7 +261,7 @@ Coming soon
 ```
 
 
-This endpoint retrieves a quote
+This endpoint retrieves a quote, the renewal flag is used for existing agreements
 
 
 ### HTTP Request
@@ -341,7 +341,7 @@ Coming soon
 ```
 
 
-This endpoint retrieves a persistent quote
+This endpoint retrieves a persistent quote. The persistent quote is stored on the system for activation at a later date.
 
 
 ### HTTP Request
@@ -662,6 +662,38 @@ Parameter | Description
 token | The Authentication token received after login
 
 <aside class="info">The agreement is renewed</aside>
+
+## Cancel an agreement
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = { "agreementNo": "", "cancellationReason": "", cancellationTypes : ""}
+
+requests.post("http://api.premfina.com/agreement/cancel/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+This endpoint cancels an existing agreement
+
+### HTTP Request
+
+`POST http://api.premfina.com/agreement/cancel/{token}
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">The agreement is cancelled</aside>
 
 ## Get an agreement
 
