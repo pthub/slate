@@ -22,6 +22,41 @@ The API is REST based and "language agnostic" supporting consumers using a varie
 
 Examples in  Java and Python are shown to the right, you can switch the programming language of the examples with the tabs in the top right.
 
+# Version
+
+To find the latest version of the API
+
+## Ping the system 
+
+> To ping, use this code:
+
+```python
+
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+response = requests.post("http://api.premfina.com/ping", headers = headers)
+
+print response.text
+
+```
+
+```java
+
+Coming soon
+
+```
+
+A sample token is given below
+
+`v1.0`
+
+<aside class="notice">
+The API call returns the version of the API
+</aside>
+
+
 # Authentication
 
 After you are set up on our systems, you can login via a user name and password.
