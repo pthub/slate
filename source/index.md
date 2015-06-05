@@ -48,7 +48,7 @@ Coming soon
 
 ```
 
-A sample token is given below
+A sample version is given below
 
 `v1.0`
 
@@ -1193,6 +1193,165 @@ Parameter | Description
 token | The Authentication token received after login
 
 <aside class="info">Modify the agreement with the details of the change in premium</aside>
+
+# Payer
+
+To payer template is used to send the details of the customer to third parties.
+
+## Get the details of Payer
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+response = requests.get("http://api.premfina.com/payer/000003461/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+
+  { "payerReference":"000003461",
+    "title":"MS",
+	"firstName":"MIR",
+	"initials":"",
+	"lastName":"BLANKSON",
+	"address1":"120",
+	"address2":"AR DRIVE",
+	"town":"HARROW",
+	"address3":"MIDDLESEX",
+	"address4":"",
+	"postCode":"HA2 8PP",
+	"telephoneNumber":null,
+	"emailAddress":null,
+	"sortCode":"110356",
+	"accountNumber":"00035470",
+	"accountHoldersName":"MISS M BLANKSON"
+	}
+
+```
+
+
+This endpoint returns the 
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/payer/{agreementNo}/{token}'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+agreementNo | An unique agreement number
+token | The Authentication token received after login
+
+<aside class="info">Get the DD payer details in a concise format</aside>
+
+
+## Get the details of multiple Payers
+
+```python
+import requests
+
+headers = {'Content-type': 'application/json'}
+
+payload = ['000003461', '000003242', '000003231']
+
+url = "http://localhost:8082/payers/%s" % token
+
+response = requests.get(url, data=json.dumps(payload), headers = headers)
+
+print response.status_code
+
+print response.text
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+
+  [ { "payerReference":"000003461",
+      "title":"MS",
+	  "firstName":"MIRI",
+	  "initials":"",
+	  "lastName":"BLANKSON",
+	  "address1":"120",
+	  "address2":"AR DRIVE",
+	  "town":"HARROW",
+	  "address3":"MIDDLESEX",
+	  "address4":"",
+	  "postCode":"HA 8PP",
+	  "telephoneNumber":null,
+	  "emailAddress":null,
+	  "sortCode":"111111",
+	  "accountNumber":"000355555",
+	  "accountHoldersName":"MISS M BLANKSON"},
+	{ "payerReference":"000003242",
+	  "title":"MR",
+	  "firstName":"MIKE",
+	  "initials":"",
+	  "lastName":"ROBINSON",
+	  "address1":"41",
+	  "address2":"GO ROAD",
+	  "town":"SWANSEA",
+	  "address3":"WEST GLAMOR",
+	  "address4":"",
+	  "postCode":"SA 7DZ",
+	  "telephoneNumber":"0000 00000",
+	  "emailAddress":"MIKEROB@PREMFINA.COM",
+	  "sortCode":"403333",
+	  "accountNumber":"121212121",
+	  "accountHoldersName":"M ROBINSON"},
+   {  "payerReference":"000003231",
+      "title":"MR",
+	  "firstName":"GA",
+	  "initials":"",
+	  "lastName":"DAVIES",
+	  "address1":"19",
+	  "address2":"EL ROAD",
+	  "town":"FOXTROT",
+	  "address3":"CAMBRIDGESHIRE",
+	  "address4":"",
+	  "postCode":"PE8 4AU",
+	  "telephoneNumber":"01234 455775",
+	  "emailAddress":"GADAVIES@PREMINA.COM",
+	  "sortCode":"111100",
+	  "accountNumber":"00777777",
+	  "accountHoldersName":"G  DAVIES"}
+	]
+
+```
+
+
+This endpoint returns the  list if payers associated with the agreements 
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/payers/{token}'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+token | The Authentication token received after login
+
+<aside class="info">Get the DD details of multiple payers in a concise format</aside>
+
 
 # Success
 
