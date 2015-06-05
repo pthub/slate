@@ -1196,7 +1196,7 @@ token | The Authentication token received after login
 
 # Payer
 
-To payer template is used to send the details of the customer to third parties.
+The payer template is used to send the details of the customer to third parties.
 
 ## Get the details of Payer
 
@@ -1239,7 +1239,7 @@ Coming soon
 ```
 
 
-This endpoint returns the 
+This endpoint returns the payer details associated with the agreement
 
 
 ### HTTP Request
@@ -1337,7 +1337,7 @@ Coming soon
 ```
 
 
-This endpoint returns the  list if payers associated with the agreements 
+This endpoint returns the  list of payers associated with the agreements 
 
 
 ### HTTP Request
@@ -1352,6 +1352,206 @@ token | The Authentication token received after login
 
 <aside class="info">Get the DD details of multiple payers in a concise format</aside>
 
+
+## Get the Payers changed since.
+
+
+```python
+
+url = "http://localhost:8082/payers/changedSince/3/%s" % token
+
+print url
+
+response = requests.get(url, data=json.dumps(payload), headers = headers)
+
+print response.status_code
+
+print response.text
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns JSON structured like this:
+
+```json
+
+ [ { "payerReference":"000003461",
+      "title":"MS",
+	  "firstName":"MIRI",
+	  "initials":"",
+	  "lastName":"BLANKSON",
+	  "address1":"120",
+	  "address2":"AR DRIVE",
+	  "town":"HARROW",
+	  "address3":"MIDDLESEX",
+	  "address4":"",
+	  "postCode":"HA 8PP",
+	  "telephoneNumber":null,
+	  "emailAddress":null,
+	  "sortCode":"111111",
+	  "accountNumber":"000355555",
+	  "accountHoldersName":"MISS M BLANKSON"},
+	{ "payerReference":"000003242",
+	  "title":"MR",
+	  "firstName":"MIKE",
+	  "initials":"",
+	  "lastName":"ROBINSON",
+	  "address1":"41",
+	  "address2":"GO ROAD",
+	  "town":"SWANSEA",
+	  "address3":"WEST GLAMOR",
+	  "address4":"",
+	  "postCode":"SA 7DZ",
+	  "telephoneNumber":"0000 00000",
+	  "emailAddress":"MIKEROB@PREMFINA.COM",
+	  "sortCode":"403333",
+	  "accountNumber":"121212121",
+	  "accountHoldersName":"M ROBINSON"},
+   {  "payerReference":"000003231",
+      "title":"MR",
+	  "firstName":"GA",
+	  "initials":"",
+	  "lastName":"DAVIES",
+	  "address1":"19",
+	  "address2":"EL ROAD",
+	  "town":"FOXTROT",
+	  "address3":"CAMBRIDGESHIRE",
+	  "address4":"",
+	  "postCode":"PE8 4AU",
+	  "telephoneNumber":"01234 455775",
+	  "emailAddress":"GADAVIES@PREMINA.COM",
+	  "sortCode":"111100",
+	  "accountNumber":"00777777",
+	  "accountHoldersName":"G  DAVIES"}
+	]
+
+```
+
+
+This endpoint returns the  list of payers whose details have changed since the last "n days".
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+days  | The number of days to look back, for any changes
+token | The Authentication token received after login
+
+<aside class="info">The agreements that have changed in the past time window are returned</aside>
+
+
+## Get the Payers changed since (in csv).
+
+
+```python
+
+url = "http://localhost:8082/payers/changedSince/3/%s/csv" % token
+
+print url
+
+response = requests.get(url, headers = headers)
+
+print response.status_code
+
+print response.text
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns csv structured like this:
+
+```csv
+
+000003461,MS,MIR,,BLANKSON,1,A DRIVE,HARROW,MIDDLESEX,,HA 8PP,,,111111,0001111,MISS M BLANKSON
+000003242,MR,M,,ROBINSON,4,GO ROAD,SWANSEA,WEST GLAMORGAN,,SA 7DZ,0111 552168,MROBINSON@PREMFINA.COM,111111,0001111,M A ROBINSON
+000003231,MR,G,,DAVIES,1,E ROAD,HUNTINGDON,CAMBRIDGESHIRE,,PE2 4AU,0111 455775,GDAVIES@PREMFINA.COM,111111,0001111,G L DAVIE
+000003237,MRS,S,,OXLEY,2,SELM PARK,LIVINGSTON,WEST LOTHIAN,,EH5 5NU,0111 435774,WOXLEY@PREMFINA.COM,111111,0001111,MRS S OXLEY
+000003243,MR,D,,ROGERS,9,ALEXANDRA WAY,CRAMLINGTON,NORTHUMBERLAND,,NE2 6EB,0111 713930,D.ROGERS924@PREMFINA.COM,111111,0001111,MR D ROGERS
+000003247,MR,H,,WILL,21,GREEN LANES,LONDON,,,N 2HA,0208 809 0303,,111111,0001111,MR H WILLIAMS
+
+```
+
+
+This endpoint returns the  list of payers whose details have changed since the last "n days" as a csv.
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+days  | The number of days to look back, for any changes
+token | The Authentication token received after login
+
+<aside class="info">The agreements that have changed in the past time window are returned in csv</aside>
+
+## Get the Payers changed since (in csv file).
+
+
+```python
+
+url = "http://localhost:8082/payers/changedSince/3/%s/csvfile" % token
+
+print url
+
+response = requests.get(url, headers = headers)
+
+print response.status_code
+
+print response.text
+
+```
+
+```java
+
+Coming soon
+```
+
+> The above command returns csv file like this:
+
+```csv
+
+000003461,MS,MIR,,BLANKSON,1,A DRIVE,HARROW,MIDDLESEX,,HA 8PP,,,111111,0001111,MISS M BLANKSON
+000003242,MR,M,,ROBINSON,4,GO ROAD,SWANSEA,WEST GLAMORGAN,,SA 7DZ,0111 552168,MROBINSON@PREMFINA.COM,111111,0001111,M A ROBINSON
+000003231,MR,G,,DAVIES,1,E ROAD,HUNTINGDON,CAMBRIDGESHIRE,,PE2 4AU,0111 455775,GDAVIES@PREMFINA.COM,111111,0001111,G L DAVIE
+000003237,MRS,S,,OXLEY,2,SELM PARK,LIVINGSTON,WEST LOTHIAN,,EH5 5NU,0111 435774,WOXLEY@PREMFINA.COM,111111,0001111,MRS S OXLEY
+000003243,MR,D,,ROGERS,9,ALEXANDRA WAY,CRAMLINGTON,NORTHUMBERLAND,,NE2 6EB,0111 713930,D.ROGERS924@PREMFINA.COM,111111,0001111,MR D ROGERS
+000003247,MR,H,,WILL,21,GREEN LANES,LONDON,,,N 2HA,0208 809 0303,,111111,0001111,MR H WILLIAMS
+
+```
+
+
+This endpoint returns the  list of payers whose details have changed since the last "n days" as a csv file.
+
+
+### HTTP Request
+
+`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csvfile'  
+
+### Path Variable
+
+Parameter | Description
+--------- | -----------
+days  | The number of days to look back, for any changes
+token | The Authentication token received after login
+
+<aside class="info">The agreements that have changed in the past time window are returned in csv file</aside>
 
 # Success
 
