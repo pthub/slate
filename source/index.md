@@ -1198,7 +1198,7 @@ token | The Authentication token received after login
 
 The payer template is used to send the details of the customer to third parties.
 
-## Get the details of Payer
+## Payer details
 
 ```python
 import requests
@@ -1256,7 +1256,7 @@ token | The Authentication token received after login
 <aside class="info">Get the DD payer details in a concise format</aside>
 
 
-## Get the details of multiple Payers
+## Multiple Payers' details
 
 ```python
 import requests
@@ -1353,7 +1353,7 @@ token | The Authentication token received after login
 <aside class="info">Get the DD details of multiple payers in a concise format</aside>
 
 
-## Get the Payers changed since.
+## Payers changed since.
 
 
 ```python
