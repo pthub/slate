@@ -6,7 +6,7 @@ language_tabs:
   - java
 
 toc_footers:
-   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
   - errors
@@ -36,7 +36,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-response = requests.post("http://api.premfina.com/ping", headers = headers)
+response = requests.post("https://api.premfina.com/ping", headers = headers)
 
 print response.text
 
@@ -86,7 +86,7 @@ payload = {"user": "bennetts", "password": "pa33w0rd-2"}
 
 headers = {'Content-type': 'application/json'}
 
-response = requests.post("http://api.premfina.com/login", data=json.dumps(payload), headers = headers)
+response = requests.post("https://api.premfina.com/login", data=json.dumps(payload), headers = headers)
 
 token = response.text
 
@@ -117,7 +117,7 @@ This endpoint is used to logout.
 
 ### HTTP Request
 
-`POST http://api.premfina.com/logout/{token}`
+`POST https://api.premfina.com/logout/{token}`
 
 ### Query Parameters
 
@@ -136,7 +136,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.post("http://api.premfina.com/logout/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+requests.post("https://api.premfina.com/logout/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
 
 ```
 
@@ -157,7 +157,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.get("http://api.premfina.com/schemes/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+requests.get("https://api.premfina.com/schemes/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
 
 ```
 
@@ -193,7 +193,7 @@ This endpoint retrieves a list of schemes on the system.
 
 ### HTTP Request
 
-`GET http://api.premfina.com/schemes/{token}`
+`GET https://api.premfina.com/schemes/{token}`
 
 ### Path Variable
 
@@ -209,7 +209,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.get("http://api.premfina.com/schemes/{schemeCode}/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+requests.get("https://api.premfina.com/schemes/{schemeCode}/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
 
 ```
 
@@ -238,7 +238,7 @@ This endpoint retrieves a scheme based on the scheme code.
 
 ### HTTP Request
 
-`GET http://api.premfina.com/schemes/{schemeCode}/{token}
+`GET https://api.premfina.com/schemes/{schemeCode}/{token}
 
 ### Path Variable
 
@@ -263,7 +263,7 @@ headers = {'Content-type': 'application/json'}
 
 payload = { schemeCode="scheme1", premium = "", deposit ="" , renewal="N"}
 
-requests.post("http://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -301,7 +301,7 @@ This endpoint retrieves a quote, the renewal flag is used for existing agreement
 
 ### HTTP Request
 
-`POST http://api.premfina.com/quote/{token}
+`POST https://api.premfina.com/quote/{token}
 
 ### Path Variable
 
@@ -342,7 +342,7 @@ payload = { schemeCode="scheme1",
 				 "accountName":""}]}
 }
 
-requests.post("http://api.premfina.com/quote/persist/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/quote/persist/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -381,7 +381,7 @@ This endpoint retrieves a persistent quote. The persistent quote is stored on th
 
 ### HTTP Request
 
-`POST http://api.premfina.com/quote/persist/{token}
+`POST https://api.premfina.com/quote/persist/{token}
 
 ### Path Variable
 
@@ -407,7 +407,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.post("http://api.premfina.com/agreement/persist/persistentQuoteId-213/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+requests.post("https://api.premfina.com/agreement/persist/persistentQuoteId-213/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
 
 ```
 
@@ -476,7 +476,7 @@ This endpoint creates an agreement from a persistent quote
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/persist/{persistentQuoteId}/{token}
+`POST https://api.premfina.com/agreement/persist/{persistentQuoteId}/{token}
 
 ### Path Variable
 
@@ -535,7 +535,7 @@ payload = {
 			}}
 
 
-requests.post("http://api.premfina.com/agreement/create/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/create/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -604,7 +604,7 @@ This endpoint creates an agreement based on a quote and a Customer
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/create/{token}
+`POST https://api.premfina.com/agreement/create/{token}
 
 ### Path Variable
 
@@ -621,7 +621,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.post("http://api.premfina.com/agreement/renew/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
+requests.post("https://api.premfina.com/agreement/renew/25892e17-80f6-415f-9c65-7395632f0223", headers = headers)
 
 ```
 
@@ -688,7 +688,7 @@ This endpoint renews an existing agreement
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/renew/{token}
+`POST https://api.premfina.com/agreement/renew/{token}
 
 ### Path Variable
 
@@ -707,7 +707,7 @@ headers = {'Content-type': 'application/json'}
 
 payload = { "agreementNo": "", "cancellationReason": "", cancellationTypes : ""}
 
-requests.post("http://api.premfina.com/agreement/cancel/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/cancel/25892e17-80f6-415f-9c65-7395632f0223", data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -720,7 +720,7 @@ This endpoint cancels an existing agreement
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/cancel/{token}
+`POST https://api.premfina.com/agreement/cancel/{token}
 
 ### Path Variable
 
@@ -737,7 +737,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.get("http://api.premfina.com/agreement/get/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+requests.get("https://api.premfina.com/agreement/get/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
 
 ```
 
@@ -806,7 +806,7 @@ This endpoint retrieves an agreement
 
 ### HTTP Request
 
-`GET http://api.premfina.com/agreement/{agreementId}/{token}
+`GET https://api.premfina.com/agreement/{agreementId}/{token}
 
 ### Path Variable
 
@@ -824,7 +824,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-requests.get("http://api.premfina.com/agreement/getschedule/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+requests.get("https://api.premfina.com/agreement/getschedule/agreement-123/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
 
 ```
 
@@ -849,7 +849,7 @@ This endpoint lists the payment schedule for an agreement
 
 ### HTTP Request
 
-`GET http://api.premfina.com/agreement/getschedule/{agreementId}/{token}
+`GET https://api.premfina.com/agreement/getschedule/{agreementId}/{token}
 
 ### Path Variable
 
@@ -889,7 +889,7 @@ payload = {
 			}
 
 
-requests.post("http://api.premfina.com/agreement/modify/address/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/modify/address/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -958,7 +958,7 @@ This endpoint modifies an agreement
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/modify/address/{token}
+`POST https://api.premfina.com/agreement/modify/address/{token}
 
 ### Path Variable
 
@@ -986,7 +986,7 @@ payload = {
 			}
 
 
-requests.post("http://api.premfina.com/agreement/modify/bankaccount/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/modify/bankaccount/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -1055,7 +1055,7 @@ This endpoint modifies an agreement
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/modify/bankaccount/{token}
+`POST https://api.premfina.com/agreement/modify/bankaccount/{token}
 
 ### Path Variable
 
@@ -1079,7 +1079,7 @@ payload = {
 			}
 
 
-requests.post("http://api.premfina.com/agreement/get/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/get/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -1128,7 +1128,7 @@ This endpoint retrieves the quote for a change in premium
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/get/premium/quote/{token}'  
+`POST https://api.premfina.com/agreement/get/premium/quote/{token}'  
 
 ### Path Variable
 
@@ -1152,7 +1152,7 @@ payload = {
 			}
 
 
-requests.post("http://api.premfina.com/agreement/modify/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
+requests.post("https://api.premfina.com/agreement/modify/premium/quote/25892e17-80f6-415f-9c65-7395632f0223",  data=json.dumps(payload), headers = headers)
 
 ```
 
@@ -1184,7 +1184,7 @@ This endpoint modifies the agreement for a change in premium and returns the quo
 
 ### HTTP Request
 
-`POST http://api.premfina.com/agreement/modify/premium/quote/{token}'  
+`POST https://api.premfina.com/agreement/modify/premium/quote/{token}'  
 
 ### Path Variable
 
@@ -1205,7 +1205,7 @@ import requests
 
 headers = {'Content-type': 'application/json'}
 
-response = requests.get("http://api.premfina.com/payer/000003461/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
+response = requests.get("https://api.premfina.com/payer/000003461/25892e17-80f6-415f-9c65-7395632f0223",  headers = headers)
 
 ```
 
@@ -1244,7 +1244,7 @@ This endpoint returns the payer details associated with the agreement
 
 ### HTTP Request
 
-`GET http://api.premfina.com/payer/{agreementNo}/{token}'  
+`GET https://api.premfina.com/payer/{agreementNo}/{token}'  
 
 ### Path Variable
 
@@ -1265,7 +1265,7 @@ headers = {'Content-type': 'application/json'}
 
 payload = ['000003461', '000003242', '000003231']
 
-url = "http://localhost:8082/payers/%s" % token
+url = "https://localhost:8082/payers/%s" % token
 
 response = requests.get(url, data=json.dumps(payload), headers = headers)
 
@@ -1342,7 +1342,7 @@ This endpoint returns the  list of payers associated with the agreements
 
 ### HTTP Request
 
-`GET http://api.premfina.com/payers/{token}'  
+`GET https://api.premfina.com/payers/{token}'  
 
 ### Path Variable
 
@@ -1358,7 +1358,7 @@ token | The Authentication token received after login
 
 ```python
 
-url = "http://localhost:8082/payers/changedSince/3/%s" % token
+url = "https://localhost:8082/payers/changedSince/3/%s" % token
 
 print url
 
@@ -1437,7 +1437,7 @@ This endpoint returns the  list of payers whose details have changed since the l
 
 ### HTTP Request
 
-`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
+`GET https://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
 
 ### Path Variable
 
@@ -1454,7 +1454,7 @@ token | The Authentication token received after login
 
 ```python
 
-url = "http://localhost:8082/payers/changedSince/3/%s/csv" % token
+url = "https://localhost:8082/payers/changedSince/3/%s/csv" % token
 
 print url
 
@@ -1476,10 +1476,10 @@ Coming soon
 ```csv
 
 000003461,MS,MIR,,BLANKSON,1,A DRIVE,HARROW,MIDDLESEX,,HA 8PP,,,111111,0001111,MISS M BLANKSON
-000003242,MR,M,,ROBINSON,4,GO ROAD,SWANSEA,WEST GLAMORGAN,,SA 7DZ,0111 552168,MROBINSON@PREMFINA.COM,111111,0001111,M A ROBINSON
-000003231,MR,G,,DAVIES,1,E ROAD,HUNTINGDON,CAMBRIDGESHIRE,,PE2 4AU,0111 455775,GDAVIES@PREMFINA.COM,111111,0001111,G L DAVIE
-000003237,MRS,S,,OXLEY,2,SELM PARK,LIVINGSTON,WEST LOTHIAN,,EH5 5NU,0111 435774,WOXLEY@PREMFINA.COM,111111,0001111,MRS S OXLEY
-000003243,MR,D,,ROGERS,9,ALEXANDRA WAY,CRAMLINGTON,NORTHUMBERLAND,,NE2 6EB,0111 713930,D.ROGERS924@PREMFINA.COM,111111,0001111,MR D ROGERS
+000003242,MR,M,,ROBINSON,4,GO ROAD,SWANSEA,WEST GLAMOR,,SA 7DZ,0111 552168,MR@PREMFINA.COM,111111,0001111,M A ROBINSON
+000003231,MR,G,,DAVIES,1,E ROAD,HUNTINGDON,CAMBRIDGE,,PE2 4AU,0111 455775,GD@PREMFINA.COM,111111,0001111,G L DAVIE
+000003237,MRS,S,,OXLEY,2,SELM PARK,LIVINGSTON,WEST LOTH,,EH5 5NU,0111 435774,WO@PREMFINA.COM,111111,0001111,MRS S OXLEY
+000003243,MR,D,,ROGERS,9,ALEXANDRA WAY,CRAML,NORTHUMBER,,NE2 6EB,0111 713930,D.RO@PREMFINA.COM,111111,0001111,MR D ROGERS
 000003247,MR,H,,WILL,21,GREEN LANES,LONDON,,,N 2HA,0208 809 0303,,111111,0001111,MR H WILLIAMS
 
 ```
@@ -1490,7 +1490,7 @@ This endpoint returns the  list of payers whose details have changed since the l
 
 ### HTTP Request
 
-`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
+`GET https://api.premfina.com/payers/changedSince/{days}/{token}/csv'  
 
 ### Path Variable
 
@@ -1506,7 +1506,7 @@ token | The Authentication token received after login
 
 ```python
 
-url = "http://localhost:8082/payers/changedSince/3/%s/csvfile" % token
+url = "https://localhost:8082/payers/changedSince/3/%s/csvfile" % token
 
 print url
 
@@ -1542,7 +1542,7 @@ This endpoint returns the  list of payers whose details have changed since the l
 
 ### HTTP Request
 
-`GET http://api.premfina.com/payers/changedSince/{days}/{token}/csvfile'  
+`GET https://api.premfina.com/payers/changedSince/{days}/{token}/csvfile'  
 
 ### Path Variable
 
