@@ -1449,7 +1449,7 @@ token | The Authentication token received after login
 <aside class="info">The agreements that have changed in the past time window are returned</aside>
 
 
-## Get the Payers changed since (in csv).
+## Payers changed since (in csv).
 
 
 ```python
@@ -1501,7 +1501,7 @@ token | The Authentication token received after login
 
 <aside class="info">The agreements that have changed in the past time window are returned in csv</aside>
 
-## Get the Payers changed since (in csv file).
+## Payers changed since( csv file ).
 
 
 ```python
