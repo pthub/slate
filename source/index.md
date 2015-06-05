@@ -817,7 +817,9 @@ token | The Authentication token received after login
 
 <aside class="info">The details of the agreement</aside>
 
-## Get the schedule for an agreement
+#Financials
+
+## Payment schedule for an agreement
 
 ```python
 import requests
