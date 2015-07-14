@@ -3,7 +3,7 @@ title: API Reference
 
 language_tabs:
   - python
-  - java
+  - curl
 
 toc_footers:
    - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -16,11 +16,11 @@ search: true
 
 # Introduction
 
-Welcome to the PremFina API ! You can use our API to access information in our systems.
+Welcome to the PremFina API ! You can use the API to access information in our systems.
 
 The API is REST based and "language agnostic" supporting consumers using a variety of programming languages.
 
-Examples in  Java and Python are shown to the right, you can switch the programming language of the examples with the tabs in the top right.
+Examples in  curl and Python are shown to the right, you can switch the programming language using the tabs on the top right side.
 
 # Version
 
@@ -42,9 +42,9 @@ print response.text
 
 ```
 
-```java
+```curl
 
-Coming soon
+curl  --header "Accept: application/json" http://192.168.50.22:8080/ping
 
 ```
 
@@ -92,7 +92,7 @@ token = response.text
 
 ```
 
-```java
+```curl
 
 Coming soon
 
@@ -140,7 +140,7 @@ requests.post("https://api.premfina.com/logout/25892e17-80f6-415f-9c65-7395632f0
 
 ```
 
-```java
+```curl
 
 coming soon
 
@@ -161,7 +161,7 @@ requests.get("https://api.premfina.com/schemes/25892e17-80f6-415f-9c65-7395632f0
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -213,7 +213,7 @@ requests.get("https://api.premfina.com/schemes/{schemeCode}/25892e17-80f6-415f-9
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -267,7 +267,7 @@ requests.post("https://api.premfina.com/quote/25892e17-80f6-415f-9c65-7395632f02
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -346,7 +346,7 @@ requests.post("https://api.premfina.com/quote/persist/25892e17-80f6-415f-9c65-73
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -411,7 +411,7 @@ requests.post("https://api.premfina.com/agreement/persist/persistentQuoteId-213/
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -539,7 +539,7 @@ requests.post("https://api.premfina.com/agreement/create/25892e17-80f6-415f-9c65
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -625,7 +625,7 @@ requests.post("https://api.premfina.com/agreement/renew/25892e17-80f6-415f-9c65-
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -711,7 +711,7 @@ requests.post("https://api.premfina.com/agreement/cancel/25892e17-80f6-415f-9c65
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -741,7 +741,7 @@ requests.get("https://api.premfina.com/agreement/get/agreement-123/25892e17-80f6
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -819,7 +819,7 @@ token | The Authentication token received after login
 
 #Financials
 
-## Payment schedule for an agreement
+## Payment schedule
 
 ```python
 import requests
@@ -830,7 +830,7 @@ requests.get("https://api.premfina.com/agreement/getschedule/agreement-123/25892
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -895,7 +895,7 @@ requests.post("https://api.premfina.com/agreement/modify/address/25892e17-80f6-4
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -992,7 +992,7 @@ requests.post("https://api.premfina.com/agreement/modify/bankaccount/25892e17-80
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1085,7 +1085,7 @@ requests.post("https://api.premfina.com/agreement/get/premium/quote/25892e17-80f
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1158,7 +1158,7 @@ requests.post("https://api.premfina.com/agreement/modify/premium/quote/25892e17-
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1211,7 +1211,7 @@ response = requests.get("https://api.premfina.com/payer/000003461/25892e17-80f6-
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1277,7 +1277,7 @@ print response.text
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1372,7 +1372,7 @@ print response.text
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1468,7 +1468,7 @@ print response.text
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1520,7 +1520,7 @@ print response.text
 
 ```
 
-```java
+```curl
 
 Coming soon
 ```
@@ -1559,7 +1559,7 @@ token | The Authentication token received after login
 
 The PremFina API uses the following success codes:
 
-Error Code | Meaning
+Code | Meaning
 ---------- | -------
 200 | Op was successful
 204 | Op was successful (without content)
